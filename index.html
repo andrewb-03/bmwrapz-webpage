@@ -1,0 +1,2109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BM Wrapz — Precision Vinyl Wrap & PPF</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
+  <style>
+    /* ============================================================
+       CUSTOM PROPERTIES
+    ============================================================ */
+    :root {
+      --bg-0:         #080808;
+      --bg-1:         #0d0d0d;
+      --bg-2:         #111111;
+      --bg-card:      #131313;
+      --bg-card-hov:  #181818;
+
+      --accent:        #CC1F1F;
+      --accent-dim:    rgba(204, 31, 31, 0.55);
+      --accent-subtle: rgba(204, 31, 31, 0.08);
+      --accent-border: rgba(204, 31, 31, 0.22);
+
+      --text-primary:   #F5F5F5;
+      --text-secondary: #7A7878;
+      --text-muted:     #3E3C3C;
+
+      --border-subtle: rgba(255, 255, 255, 0.06);
+      --border-accent: rgba(204, 31, 31, 0.18);
+
+      --font-display: 'Bebas Neue', sans-serif;
+      --font-body:    'DM Sans', sans-serif;
+
+      --space-xs: 0.5rem;
+      --space-sm: 1rem;
+      --space-md: 2rem;
+      --space-lg: 4rem;
+      --space-xl: 8rem;
+
+      --radius-sm: 3px;
+      --radius-md: 8px;
+
+      --ease:      cubic-bezier(0.4, 0, 0.2, 1);
+      --ease-slow: cubic-bezier(0.25, 0.1, 0.25, 1);
+
+      --nav-h:    100px;
+      --max-w:  1280px;
+    }
+
+    /* ============================================================
+       RESET + BASE
+    ============================================================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; font-size: 16px; }
+
+    body {
+      background-color: var(--bg-0);
+      color: var(--text-primary);
+      font-family: var(--font-body);
+      font-weight: 300;
+      line-height: 1.6;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Grain overlay — subtle texture to break up flat dark areas */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.78' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23g)'/%3E%3C/svg%3E");
+      opacity: 0.038;
+      pointer-events: none;
+      z-index: 9000;
+    }
+
+    img  { max-width: 100%; display: block; }
+    a    { text-decoration: none; color: inherit; }
+    button { cursor: pointer; border: none; background: none; font-family: var(--font-body); }
+
+    /* ============================================================
+       SCROLL REVEAL
+    ============================================================ */
+    .reveal {
+      opacity: 0;
+      transform: translateY(26px);
+      transition: opacity 0.75s var(--ease-slow), transform 0.75s var(--ease-slow);
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    .reveal-d1 { transition-delay: 0.08s; }
+    .reveal-d2 { transition-delay: 0.17s; }
+    .reveal-d3 { transition-delay: 0.26s; }
+    .reveal-d4 { transition-delay: 0.35s; }
+
+    /* ============================================================
+       TYPOGRAPHY
+    ============================================================ */
+    h1, h2, h3 {
+      font-family: var(--font-display);
+      letter-spacing: 0.02em;
+      line-height: 1.02;
+    }
+
+    .label {
+      display: block;
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+
+    .section-title {
+      font-size: clamp(2.6rem, 5vw, 4.8rem);
+      color: var(--text-primary);
+      margin-bottom: 1.5rem;
+    }
+
+    .section-sub {
+      font-size: 0.975rem;
+      color: var(--text-secondary);
+      font-weight: 300;
+      line-height: 1.75;
+      max-width: 520px;
+    }
+
+    /* ============================================================
+       LAYOUT
+    ============================================================ */
+    .container {
+      width: 100%;
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    section { padding: var(--space-xl) 0; }
+
+    .rule-h {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border-accent), transparent);
+    }
+
+    /* ============================================================
+       BUTTONS
+    ============================================================ */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.875rem 2rem;
+      font-family: var(--font-body);
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      border-radius: var(--radius-sm);
+      transition: background 0.25s var(--ease),
+                  color 0.25s var(--ease),
+                  border-color 0.25s var(--ease),
+                  transform 0.25s var(--ease),
+                  box-shadow 0.25s var(--ease);
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #090909;
+    }
+    .btn-primary:hover {
+      background: #e02626;
+      transform: translateY(-1px);
+      box-shadow: 0 10px 28px rgba(204, 31, 31, 0.28);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--text-primary);
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+    .btn-ghost:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      transform: translateY(-1px);
+    }
+
+    /* ============================================================
+       NAVIGATION
+    ============================================================ */
+    #nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: var(--nav-h);
+      z-index: 1000;
+      transition: background 0.35s var(--ease),
+                  backdrop-filter 0.35s var(--ease),
+                  border-color 0.35s var(--ease);
+      border-bottom: 1px solid transparent;
+    }
+
+    #nav.scrolled {
+      background: rgba(8, 8, 8, 0.88);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom-color: var(--border-subtle);
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 100%;
+    }
+
+    /* Logo */
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      text-decoration: none;
+    }
+    .nav-logo img {
+      height: 90px;
+      width: auto;
+      object-fit: contain;
+    }
+    .nav-logo-text {
+      font-family: var(--font-display);
+      font-size: 1.55rem;
+      letter-spacing: 0.1em;
+      color: var(--text-primary);
+    }
+    .nav-logo-text em { color: var(--accent); font-style: normal; }
+
+    /* Links */
+    .nav-links-wrap { display: flex; align-items: center; gap: 2.75rem; }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.73rem;
+      font-weight: 400;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+      transition: color 0.2s var(--ease);
+      position: relative;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -3px; left: 0;
+      width: 0; height: 1px;
+      background: var(--accent);
+      transition: width 0.25s var(--ease);
+    }
+    .nav-links a:hover { color: var(--text-primary); }
+    .nav-links a:hover::after { width: 100%; }
+
+    .nav-quote {
+      padding: 0.6rem 1.35rem;
+      font-size: 0.7rem;
+    }
+
+    /* Hamburger */
+    .nav-burger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      padding: 4px;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+    .nav-burger span {
+      display: block;
+      width: 22px; height: 1px;
+      background: var(--text-primary);
+      transition: transform 0.25s var(--ease), opacity 0.25s var(--ease);
+    }
+    .nav-burger.open span:nth-child(1) { transform: rotate(45deg) translate(4px, 4px); }
+    .nav-burger.open span:nth-child(2) { opacity: 0; }
+    .nav-burger.open span:nth-child(3) { transform: rotate(-45deg) translate(4px, -4px); }
+
+    /* ============================================================
+       HERO
+    ============================================================ */
+    #hero {
+      position: relative;
+      height: 100svh;
+      min-height: 620px;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      padding: 0;
+    }
+
+    /* Dramatic dark gradient background — replace with real photo via CSS background-image */
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at 68% 42%, #1a0c0c 0%, transparent 52%),
+        radial-gradient(ellipse at 18% 75%, #110808 0%, transparent 48%),
+        linear-gradient(155deg, #0e0e0e 0%, #080808 45%, #0a0808 100%);
+      transform: scale(1.1);
+      will-change: transform;
+    }
+
+    /* Simulated sweep of studio light */
+    .hero-bg::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        108deg,
+        transparent 32%,
+        rgba(204, 31, 31, 0.04) 52%,
+        transparent 68%
+      );
+    }
+
+    /* Bottom accent line */
+    .hero-bg::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent 5%, var(--accent-dim) 50%, transparent 95%);
+      opacity: 0.4;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      padding-top: var(--nav-h);
+    }
+
+    .hero-eyebrow {
+      font-size: 0.68rem;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 400;
+      margin-bottom: 1.4rem;
+    }
+
+    .hero-title {
+      font-size: clamp(4rem, 10vw, 10rem);
+      line-height: 0.93;
+      letter-spacing: 0.01em;
+      color: var(--text-primary);
+      margin-bottom: 1.8rem;
+    }
+    .hero-title em {
+      display: block;
+      color: var(--accent);
+      font-style: normal;
+    }
+
+    .hero-sub {
+      font-size: clamp(0.9rem, 1.4vw, 1.025rem);
+      color: var(--text-secondary);
+      font-weight: 300;
+      max-width: 440px;
+      letter-spacing: 0.02em;
+      margin-bottom: 2.8rem;
+      line-height: 1.72;
+    }
+
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    /* Scroll indicator */
+    .hero-scroll {
+      position: absolute;
+      bottom: 2.25rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.45rem;
+      color: var(--text-muted);
+      font-size: 0.62rem;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      animation: scrollBob 2.8s ease-in-out infinite;
+    }
+    .hero-scroll::after {
+      content: '';
+      display: block;
+      width: 1px; height: 38px;
+      background: linear-gradient(to bottom, var(--accent-dim), transparent);
+    }
+    @keyframes scrollBob {
+      0%, 100% { opacity: 0.35; transform: translateX(-50%) translateY(0); }
+      50%       { opacity: 0.7;  transform: translateX(-50%) translateY(5px); }
+    }
+
+    /* ============================================================
+       SERVICES
+    ============================================================ */
+    #services {
+      background: var(--bg-1);
+      position: relative;
+    }
+    #services::before { content: ''; display: block; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--border-accent), transparent); }
+
+    .section-head { margin-bottom: var(--space-lg); }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: var(--border-subtle);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+    }
+
+    .svc-card {
+      background: var(--bg-card);
+      padding: 2.5rem 2rem 2.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+      position: relative;
+      transition: background 0.28s var(--ease), transform 0.28s var(--ease);
+      overflow: hidden;
+    }
+    .svc-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--accent);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s var(--ease);
+    }
+    .svc-card:hover { background: var(--bg-card-hov); transform: translateY(-3px); }
+    .svc-card:hover::before { transform: scaleX(1); }
+
+    .svc-icon { width: 42px; height: 42px; color: var(--accent); }
+
+    .svc-card h3 {
+      font-size: 1.7rem;
+      letter-spacing: 0.03em;
+      color: var(--text-primary);
+    }
+
+    .svc-card p {
+      font-size: 0.87rem;
+      color: var(--text-secondary);
+      line-height: 1.68;
+      font-weight: 300;
+      flex: 1;
+    }
+
+    .svc-more {
+      font-size: 0.68rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--accent);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      transition: gap 0.22s var(--ease);
+    }
+    .svc-card:hover .svc-more { gap: 0.72rem; }
+
+    /* ============================================================
+       ABOUT
+    ============================================================ */
+    #about { background: var(--bg-0); }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 7rem;
+      align-items: center;
+    }
+
+    .accent-rule {
+      width: 46px; height: 1px;
+      background: var(--accent);
+      margin: 1.75rem 0;
+    }
+
+    .about-copy p + p { margin-top: 1rem; }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: var(--border-subtle);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+    }
+
+    .stat-block {
+      background: var(--bg-card);
+      padding: 2.5rem 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .stat-num {
+      font-family: var(--font-display);
+      font-size: 3.6rem;
+      line-height: 1;
+      color: var(--accent);
+      letter-spacing: 0.02em;
+    }
+
+    .stat-lbl {
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-weight: 400;
+    }
+
+    /* ============================================================
+       CERTIFICATIONS
+    ============================================================ */
+    #certifications {
+      background: #0d0d0d;
+      position: relative;
+      padding: var(--space-xl) 0;
+      overflow: hidden;
+    }
+
+    /* Red-tinted grain overlay unique to this section */
+    #certifications::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='250' height='250'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='1 0 0 0 0.3  0 0 0 0 0  0 0 0 0 0  0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='250' height='250' filter='url(%23g)'/%3E%3C/svg%3E");
+      opacity: 0.045;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .cert-frame {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Top + bottom red rules */
+    .cert-rule {
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent 0%, var(--accent) 30%, var(--accent) 70%, transparent 100%);
+      opacity: 0.35;
+      margin: 2.5rem 0;
+    }
+
+    .cert-header {
+      text-align: center;
+      margin-bottom: 0;
+    }
+
+    .cert-label {
+      font-family: var(--font-body);
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    /* Badge row */
+    .cert-badges {
+      display: flex;
+      align-items: stretch;
+      justify-content: center;
+      gap: 0;
+      padding: 1rem 0;
+    }
+
+    .cert-badge {
+      flex: 1;
+      max-width: 420px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 3rem 3.5rem;
+      gap: 1.5rem;
+    }
+
+    /* Vertical red divider between badges */
+    .cert-divider {
+      width: 1px;
+      align-self: stretch;
+      margin: 1rem 0;
+      background: linear-gradient(to bottom, transparent, var(--accent) 20%, var(--accent) 80%, transparent);
+      opacity: 0.35;
+      flex-shrink: 0;
+    }
+
+    /* Icon container with red glow */
+    .cert-icon-wrap {
+      position: relative;
+      width: 72px;
+      height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .cert-icon-wrap::after {
+      content: '';
+      position: absolute;
+      inset: -12px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(204, 31, 31, 0.18) 0%, transparent 70%);
+    }
+    .cert-icon {
+      width: 56px;
+      height: 56px;
+      color: var(--accent);
+      position: relative;
+      z-index: 1;
+      filter: drop-shadow(0 0 8px rgba(204, 31, 31, 0.45));
+    }
+
+    .cert-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 3.5vw, 2.8rem);
+      letter-spacing: 0.04em;
+      line-height: 1.05;
+      color: var(--text-primary);
+    }
+
+    .cert-sub {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-weight: 300;
+    }
+
+    .cert-footer {
+      text-align: center;
+      max-width: 620px;
+      margin: 0 auto;
+    }
+
+    .cert-footer p {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      font-weight: 300;
+      line-height: 1.75;
+    }
+
+    .cert-footer p em {
+      color: var(--text-primary);
+      font-style: normal;
+    }
+
+    /* Mobile: stack badges */
+    @media (max-width: 640px) {
+      .cert-badges { flex-direction: column; align-items: center; }
+      .cert-divider {
+        width: 60%;
+        height: 1px;
+        align-self: center;
+        margin: 0;
+        background: linear-gradient(to right, transparent, var(--accent) 20%, var(--accent) 80%, transparent);
+      }
+      .cert-badge { padding: 2.5rem 2rem; }
+    }
+
+    /* ============================================================
+       GALLERY — SLIDESHOW
+    ============================================================ */
+    #gallery {
+      background: var(--bg-0);
+      padding-bottom: var(--space-xl);
+    }
+
+    .section-head { margin-bottom: var(--space-lg); }
+
+    /* Slideshow stage */
+    .slideshow {
+      position: relative;
+      width: 100%;
+      height: 70vh;
+      min-height: 400px;
+      background: #000;
+      overflow: hidden;
+      user-select: none;
+    }
+
+    /* Individual slides — stacked, fade in/out */
+    .slide {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+    }
+    .slide.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      object-position: center center;
+      display: block;
+    }
+
+    /* Bottom gradient for legibility of labels + counter */
+    .slide-gradient {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 120px;
+      background: linear-gradient(to top, rgba(0,0,0,0.65), transparent);
+      pointer-events: none;
+    }
+
+    .slide-label { display: none; }
+
+    /* Counter — bottom center */
+    .slideshow-counter {
+      position: absolute;
+      bottom: 1.25rem;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: var(--font-body);
+      font-size: 0.7rem;
+      font-weight: 400;
+      letter-spacing: 0.2em;
+      color: rgba(255,255,255,0.7);
+      z-index: 10;
+      pointer-events: none;
+      white-space: nowrap;
+    }
+
+    /* Arrow buttons */
+    .ss-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 10;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: rgba(0,0,0,0.5);
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s ease;
+    }
+    .ss-arrow:hover { background: var(--accent); }
+    .ss-arrow svg { display: block; }
+    .ss-prev { left: 1.25rem; }
+    .ss-next { right: 1.25rem; }
+
+    /* Dot indicators */
+    .slideshow-dots {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 1.25rem 0 0;
+    }
+
+    .ss-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #444;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      transition: background 0.2s ease, transform 0.2s ease;
+      flex-shrink: 0;
+    }
+    .ss-dot.active {
+      background: var(--accent);
+      transform: scale(1.4);
+    }
+
+    @media (max-width: 768px) {
+      .slideshow { height: 50vh; min-height: 280px; }
+      .ss-arrow { width: 38px; height: 38px; }
+    }
+
+    /* ============================================================
+       VIDEO SHOWCASE
+    ============================================================ */
+    #video-showcase {
+      background: #0d0d0d;
+      padding-bottom: var(--space-xl);
+      position: relative;
+      overflow: hidden;
+    }
+    #video-showcase::before,
+    #video-showcase::after {
+      content: '';
+      position: absolute;
+      left: 0; right: 0;
+      height: 1px;
+      background: var(--accent);
+      z-index: 2;
+    }
+    #video-showcase::before { top: 0; }
+    #video-showcase::after  { bottom: 0; }
+
+    /* video slideshow stage */
+    .vs-stage {
+      position: relative;
+      width: 100%;
+      height: 70vh;
+      min-height: 400px;
+      background: #000;
+      overflow: hidden;
+      user-select: none;
+    }
+
+    /* individual video slides — stacked, fade like photo slides */
+    .vs {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      pointer-events: none;
+    }
+    .vs.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .vs video {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+      background: #000;
+    }
+
+    /* mute toggle */
+    .vs-mute {
+      position: absolute;
+      bottom: 56px;
+      right: 20px;
+      z-index: 10;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: rgba(0,0,0,0.6);
+      border: 1px solid rgba(255,255,255,0.15);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s ease;
+    }
+    .vs-mute:hover { background: var(--accent); }
+    .vs-mute svg { width: 16px; height: 16px; }
+
+    /* arrows — same style as photo slideshow */
+    .vs-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 10;
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      background: rgba(0,0,0,0.55);
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s ease;
+    }
+    .vs-arrow:hover { background: var(--accent); }
+    .vs-arrow svg { width: 18px; height: 18px; }
+    .vs-prev { left: 20px; }
+    .vs-next { right: 20px; }
+
+    /* counter */
+    .vs-counter {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+      z-index: 10;
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      letter-spacing: 0.12em;
+      color: rgba(255,255,255,0.75);
+      pointer-events: none;
+    }
+
+    /* progress bar — shows current video playback */
+    .vs-progress-wrap {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: rgba(255,255,255,0.12);
+      z-index: 10;
+    }
+    .vs-progress-bar {
+      height: 100%;
+      background: var(--accent);
+      width: 0%;
+      transition: width 0.25s linear;
+    }
+
+    /* dots */
+    .vs-dots {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 18px;
+    }
+    .vs-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.25);
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.2s ease;
+      padding: 0;
+    }
+    .vs-dot.active {
+      background: var(--accent);
+      transform: scale(1.4);
+    }
+
+    @media (max-width: 768px) {
+      .vs-stage { height: 50vh; min-height: 260px; }
+      .vs-arrow { width: 38px; height: 38px; }
+    }
+
+    /* ============================================================
+       TESTIMONIALS
+    ============================================================ */
+    #testimonials { background: var(--bg-0); }
+
+    .testi-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+
+    .testi-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      transition: border-color 0.28s var(--ease), transform 0.28s var(--ease);
+    }
+    .testi-card:hover {
+      border-color: var(--accent-border);
+      transform: translateY(-3px);
+    }
+
+    /* Car photo */
+    .testi-photo-wrap {
+      position: relative;
+      height: 340px;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    .testi-photo-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center center;
+      display: block;
+      transition: transform 0.65s var(--ease-slow);
+      filter: brightness(0.88) contrast(1.05);
+    }
+    /* Per-card crop — adjust Y offset to reframe each car */
+    .testi-card:nth-child(1) .testi-photo-wrap img { object-position: center 280px; }
+    .testi-card:nth-child(2) .testi-photo-wrap img { object-position: center 600px; }
+    .testi-card:nth-child(3) .testi-photo-wrap img { object-position: center 600px; }
+    .testi-card:hover .testi-photo-wrap img {
+      transform: scale(1.04);
+    }
+    /* Gradient fade into card body */
+    .testi-photo-wrap::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 90px;
+      background: linear-gradient(to bottom, transparent, var(--bg-card));
+      pointer-events: none;
+    }
+    /* Red accent line at top of photo */
+    .testi-photo-wrap::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--accent);
+      z-index: 1;
+    }
+
+    /* Card body */
+    .testi-body {
+      padding: 1.5rem 1.75rem 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      flex: 1;
+    }
+
+    .testi-stars { display: flex; gap: 3px; }
+    .testi-stars span { color: var(--accent); font-size: 0.72rem; }
+
+    .testi-quote-mark {
+      font-family: Georgia, serif;
+      font-size: 1.8rem;
+      line-height: 1;
+      color: var(--accent);
+      opacity: 0.45;
+    }
+
+    .testi-text {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      line-height: 1.78;
+      font-weight: 300;
+      flex: 1;
+    }
+
+    .testi-author {
+      padding-top: 1.1rem;
+      border-top: 1px solid var(--border-subtle);
+      display: flex;
+      flex-direction: column;
+      gap: 0.22rem;
+    }
+
+    .testi-name {
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--text-primary);
+      letter-spacing: 0.05em;
+    }
+
+    .testi-vehicle {
+      font-size: 0.73rem;
+      color: var(--accent);
+      letter-spacing: 0.1em;
+    }
+
+    /* ============================================================
+       CONTACT
+    ============================================================ */
+    #contact {
+      background: #111111;
+      position: relative;
+      overflow: hidden;
+      padding: var(--space-xl) 0;
+    }
+
+    /* Grain overlay */
+    #contact::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='280' height='280'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.76' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='280' height='280' filter='url(%23g)'/%3E%3C/svg%3E");
+      opacity: 0.035;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .contact-inner {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .contact-headline {
+      font-family: var(--font-display);
+      font-size: clamp(2.8rem, 7vw, 6rem);
+      letter-spacing: 0.03em;
+      line-height: 1;
+      color: var(--text-primary);
+      margin-bottom: 1.25rem;
+    }
+
+    .contact-subline {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      font-weight: 300;
+      margin-bottom: 2.5rem;
+    }
+
+    .contact-rule {
+      width: 100%;
+      max-width: 640px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--accent) 30%, var(--accent) 70%, transparent);
+      opacity: 0.3;
+      margin-bottom: 3.5rem;
+    }
+
+    /* Two contact columns */
+    .contact-cols {
+      display: flex;
+      align-items: stretch;
+      justify-content: center;
+      gap: 0;
+      width: 100%;
+      max-width: 860px;
+    }
+
+    .contact-col {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.25rem;
+      padding: 2rem 3rem;
+    }
+
+    .contact-col-divider {
+      width: 1px;
+      align-self: stretch;
+      margin: 0.5rem 0;
+      background: linear-gradient(to bottom, transparent, var(--accent) 20%, var(--accent) 80%, transparent);
+      opacity: 0.3;
+      flex-shrink: 0;
+    }
+
+    /* Icon */
+    .contact-col-icon {
+      width: 40px;
+      height: 40px;
+      color: var(--accent);
+      filter: drop-shadow(0 0 6px rgba(204,31,31,0.4));
+    }
+
+    /* Label */
+    .contact-col-label {
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    /* Phone numbers / handles */
+    .contact-links {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.3rem;
+    }
+
+    .contact-link {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+      letter-spacing: 0.04em;
+      color: var(--text-primary);
+      text-decoration: none;
+      line-height: 1.1;
+      transition: color 0.2s var(--ease);
+    }
+    .contact-link:hover { color: var(--accent); }
+
+    .contact-col-note {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      font-weight: 300;
+      line-height: 1.6;
+      max-width: 240px;
+    }
+
+    /* Bottom tagline */
+    .contact-tagline {
+      margin-top: 3.5rem;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      letter-spacing: 0.08em;
+    }
+
+    /* Mobile */
+    @media (max-width: 640px) {
+      .contact-cols {
+        flex-direction: column;
+        align-items: center;
+        gap: 0;
+      }
+      .contact-col-divider {
+        width: 50%;
+        height: 1px;
+        align-self: center;
+        background: linear-gradient(to right, transparent, var(--accent) 20%, var(--accent) 80%, transparent);
+        margin: 0.5rem 0;
+      }
+      .contact-col { padding: 2rem 1.5rem; }
+    }
+
+    /* ============================================================
+       FOOTER
+    ============================================================ */
+    footer {
+      background: var(--bg-0);
+      border-top: 1px solid var(--border-subtle);
+      padding: 2.75rem 0;
+    }
+
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+    }
+
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+    }
+    .footer-logo img {
+      height: 34px;
+      width: auto;
+      opacity: 0.55;
+    }
+    .footer-logo-text {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      letter-spacing: 0.1em;
+      color: var(--text-secondary);
+    }
+    .footer-logo-text em { color: var(--accent); font-style: normal; opacity: 0.7; }
+
+    .footer-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+    .footer-links a {
+      font-size: 0.68rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      transition: color 0.2s var(--ease);
+    }
+    .footer-links a:hover { color: var(--accent); }
+
+    .footer-right {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .footer-ig {
+      color: var(--text-muted);
+      transition: color 0.2s var(--ease);
+    }
+    .footer-ig:hover { color: var(--accent); }
+
+    .footer-copy {
+      font-size: 0.68rem;
+      color: var(--text-muted);
+      letter-spacing: 0.06em;
+    }
+
+    /* ============================================================
+       RESPONSIVE — TABLET
+    ============================================================ */
+    @media (max-width: 1024px) {
+      :root {
+        --space-xl: 6rem;
+        --space-lg: 3.5rem;
+      }
+
+      .services-grid { grid-template-columns: repeat(2, 1fr); }
+
+      .about-grid { gap: 4rem; }
+
+
+      .testi-grid { grid-template-columns: 1fr 1fr; }
+      .testi-photo-wrap { height: 260px; }
+
+      .contact-grid { grid-template-columns: 1fr; gap: 4rem; }
+      .contact-info .section-sub { max-width: 100%; }
+    }
+
+    /* ============================================================
+       RESPONSIVE — MOBILE
+    ============================================================ */
+    @media (max-width: 768px) {
+      :root {
+        --space-xl: 4.5rem;
+        --space-lg: 3rem;
+      }
+
+      /* Nav mobile */
+      .nav-links-wrap {
+        position: fixed;
+        top: var(--nav-h);
+        left: 0; right: 0;
+        background: rgba(8,8,8,0.96);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        padding: 2rem;
+        border-bottom: 1px solid var(--border-subtle);
+        transform: translateY(-110%);
+        opacity: 0;
+        transition: transform 0.3s var(--ease), opacity 0.3s var(--ease);
+        z-index: 999;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0;
+      }
+      .nav-links-wrap.open { transform: translateY(0); opacity: 1; }
+
+      .nav-links { flex-direction: column; align-items: flex-start; gap: 0; width: 100%; }
+      .nav-links li { width: 100%; border-bottom: 1px solid var(--border-subtle); }
+      .nav-links a { display: block; padding: 1rem 0; font-size: 0.85rem; color: var(--text-primary); }
+      .nav-links a::after { display: none; }
+
+      .nav-quote { display: none; }
+      .nav-burger { display: flex; }
+
+      /* Hero */
+      .hero-title { font-size: clamp(3.2rem, 14vw, 5.5rem); }
+      .hero-sub { max-width: 100%; }
+
+      /* Services */
+      .services-grid { grid-template-columns: 1fr; }
+
+      /* About */
+      .about-grid { grid-template-columns: 1fr; gap: var(--space-lg); }
+      .stats-grid { grid-template-columns: 1fr 1fr; }
+
+
+      /* Testimonials */
+      .testi-grid { grid-template-columns: 1fr; }
+      .testi-photo-wrap { height: 300px; }
+
+      /* Contact */
+      .form-row { grid-template-columns: 1fr; }
+
+      /* Footer */
+      .footer-inner { flex-direction: column; text-align: center; gap: 1.5rem; }
+      .footer-links { flex-wrap: wrap; justify-content: center; }
+      .footer-right { flex-wrap: wrap; justify-content: center; }
+    }
+
+    @media (max-width: 480px) {
+      .hero-actions { flex-direction: column; align-items: flex-start; }
+      .stats-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ================================================================
+     NAVIGATION
+================================================================ -->
+<header>
+  <nav id="nav">
+    <div class="container nav-inner">
+
+      <a href="#" class="nav-logo">
+        <img src="pictures/logo.PNG" alt="BM Wrapz">
+      </a>
+
+      <div class="nav-links-wrap">
+        <ul class="nav-links">
+          <li><a href="#services">Services</a></li>
+          <li><a href="#gallery">Work</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+        <a href="#contact" class="btn btn-primary nav-quote">Get a Quote</a>
+      </div>
+
+      <button class="nav-burger" id="navBurger" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+
+    </div>
+  </nav>
+</header>
+
+<main>
+
+  <!-- ================================================================
+       HERO
+  ================================================================ -->
+  <section id="hero">
+    <div class="hero-bg" id="heroBg"></div>
+
+    <div class="container hero-content">
+      <p class="hero-eyebrow">Vinyl Wrap &amp; Paint Protection Film</p>
+      <h1 class="hero-title">
+        Precision Wrap.<br>
+        <em>Protected Finish.</em>
+      </h1>
+      <p class="hero-sub">Bespoke installations for exotic and high-performance vehicles. Every panel. Every edge. Every time.</p>
+      <div class="hero-actions">
+        <a href="#contact" class="btn btn-primary">Get a Quote</a>
+        <a href="#gallery" class="btn btn-ghost">View Work</a>
+      </div>
+    </div>
+
+    <div class="hero-scroll">Scroll</div>
+  </section>
+
+  <!-- ================================================================
+       SERVICES
+  ================================================================ -->
+  <section id="services">
+    <div class="container">
+
+      <div class="section-head reveal">
+        <span class="label">What We Do</span>
+        <h2 class="section-title">Crafted Services</h2>
+        <p class="section-sub">From full exterior transformations to invisible paint protection — every service is executed with the same uncompromising precision.</p>
+      </div>
+
+      <div class="services-grid">
+
+        <!-- Vinyl Wrap -->
+        <div class="svc-card reveal reveal-d1">
+          <svg class="svc-icon" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="5" y="10" width="34" height="24" rx="3" stroke="currentColor" stroke-width="1.5"/>
+            <path d="M5 17h34" stroke="currentColor" stroke-width="1.5" stroke-dasharray="3 2.5"/>
+            <circle cx="22" cy="27" r="4" stroke="currentColor" stroke-width="1.5"/>
+            <path d="M10 27h6M28 27h6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+          <h3>Vinyl Wrap</h3>
+          <p>Complete exterior transformation using premium cast vinyl. Available in matte, satin, gloss, metallic, and specialty finishes.</p>
+          <span class="svc-more">Inquire →</span>
+        </div>
+
+        <!-- PPF -->
+        <div class="svc-card reveal reveal-d2">
+          <svg class="svc-icon" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M22 5L7 12.5v13c0 8.5 6.5 14 15 16.5 8.5-2.5 15-8 15-16.5v-13L22 5z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+            <path d="M15 22.5l5 5 9-9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <h3>PPF</h3>
+          <p>Optically clear urethane film that shields against stone chips, scratches, and UV degradation — invisible armor for your paint.</p>
+          <span class="svc-more">Inquire →</span>
+        </div>
+
+        <!-- Colored PPF -->
+        <div class="svc-card reveal reveal-d3">
+          <svg class="svc-icon" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M22 5L7 12.5v13c0 8.5 6.5 14 15 16.5 8.5-2.5 15-8 15-16.5v-13L22 5z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+            <circle cx="22" cy="23" r="5" stroke="currentColor" stroke-width="1.5"/>
+            <path d="M22 4.5v5.5M22 37.5v-5.5M5.5 23h5.5M37.5 23h-5.5" stroke="currentColor" stroke-width="1" stroke-linecap="round" opacity="0.45"/>
+          </svg>
+          <h3>Colored PPF</h3>
+          <p>The best of both worlds — color-tinted protection film that delivers a finish transformation without sacrificing protective properties.</p>
+          <span class="svc-more">Inquire →</span>
+        </div>
+
+        <!-- Custom / Partial -->
+        <div class="svc-card reveal reveal-d4">
+          <svg class="svc-icon" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M9 36L22 9l13 27" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M14 26h16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            <circle cx="35" cy="15" r="4" stroke="currentColor" stroke-width="1.5"/>
+            <path d="M35 9v4M35 21v-4M29 15h4M41 15h-4" stroke="currentColor" stroke-width="1" stroke-linecap="round" opacity="0.55"/>
+          </svg>
+          <h3>Custom &amp; Partial</h3>
+          <p>Accent roofs, racing stripes, hood wraps, and commercial fleet graphics — precision-cut to exact specifications.</p>
+          <span class="svc-more">Inquire →</span>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================================================
+       ABOUT
+  ================================================================ -->
+  <section id="about">
+    <div class="container">
+      <div class="about-grid">
+
+        <div class="about-copy reveal">
+          <span class="label">The Craft</span>
+          <h2 class="section-title">Details That<br>Define Excellence</h2>
+          <div class="accent-rule"></div>
+          <p class="section-sub" style="max-width:100%;">Every vehicle that enters the shop is treated as a commission — not a job. With four years focused exclusively on high-end and exotic vehicles, the standard here is defined by the standards of the cars it protects.</p>
+          <p class="section-sub" style="max-width:100%; margin-top:1rem;">No shortcuts. No rushed timelines. The right adhesive, the right temperature, the right tension on every edge — because these cars deserve nothing less.</p>
+        </div>
+
+        <div class="reveal reveal-d2">
+          <div class="stats-grid">
+            <div class="stat-block">
+              <span class="stat-num">200+</span>
+              <span class="stat-lbl">Cars Wrapped</span>
+            </div>
+            <div class="stat-block">
+              <span class="stat-num">4</span>
+              <span class="stat-lbl">Years Experience</span>
+            </div>
+            <div class="stat-block">
+              <span class="stat-num">10+</span>
+              <span class="stat-lbl">Exotics Wrapped</span>
+            </div>
+            <div class="stat-block">
+              <span class="stat-num">100%</span>
+              <span class="stat-lbl">Satisfaction Rate</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================================================
+       CERTIFICATIONS
+  ================================================================ -->
+  <section id="certifications">
+    <div class="container cert-frame">
+
+      <div class="cert-header reveal">
+        <span class="cert-label">Certifications &amp; Partnerships</span>
+      </div>
+
+      <div class="cert-rule reveal"></div>
+
+      <div class="cert-badges">
+
+        <div class="cert-badge reveal reveal-d1">
+          <div class="cert-icon-wrap">
+            <!-- Diamond / precision icon -->
+            <svg class="cert-icon" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M28 6L50 28L28 50L6 28L28 6Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+              <path d="M28 14L42 28L28 42L14 28L28 14Z" stroke="currentColor" stroke-width="1" stroke-linejoin="round" opacity="0.4"/>
+              <circle cx="28" cy="28" r="3" stroke="currentColor" stroke-width="1.5"/>
+            </svg>
+          </div>
+          <h3 class="cert-title">Inozetek Certified<br>Installer</h3>
+          <span class="cert-sub">Verified Installation Excellence</span>
+        </div>
+
+        <div class="cert-divider reveal"></div>
+
+        <div class="cert-badge reveal reveal-d2">
+          <div class="cert-icon-wrap">
+            <!-- Shield / dealer icon -->
+            <svg class="cert-icon" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M28 6L8 15V30C8 41 17 49 28 52C39 49 48 41 48 30V15L28 6Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+              <path d="M28 14L16 19.5V29C16 35.5 21.5 41 28 43C34.5 41 40 35.5 40 29V19.5L28 14Z" stroke="currentColor" stroke-width="1" stroke-linejoin="round" opacity="0.4"/>
+              <path d="M21 28l5 5 9-9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <h3 class="cert-title">Inozetek Apex<br>Dealer</h3>
+          <span class="cert-sub">Authorized Premium Film Dealer</span>
+        </div>
+
+      </div>
+
+      <div class="cert-rule reveal"></div>
+
+      <div class="cert-footer reveal">
+        <p>As an <em>Inozetek Apex Dealer</em>, we carry the full range of premium Inozetek films — installed by a <em>factory-certified professional</em> who meets the brand's highest standards of quality and technique.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================================================================
+       VIDEO SHOWCASE
+  ================================================================ -->
+  <section id="video-showcase">
+
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="label">In The Shop</span>
+        <h2 class="section-title">See It In Action</h2>
+        <p class="section-sub">Real installs. Real results. No shortcuts.</p>
+      </div>
+    </div>
+
+    <!-- Video slideshow stage -->
+    <div class="vs-stage reveal" id="vsStage">
+
+      <div class="vs active">
+        <video src="videos/%40inozetek%20Ruby%20Star%20installed%20on%20this%20beautiful%20Porsche%20911%20996%20and%20graphene%20coated%20to%20keep%20that.mp4" preload="metadata" playsinline muted></video>
+      </div>
+      <div class="vs">
+        <video src="videos/Big%20project%20just%20finished%F0%9F%94%A5-Full%20%40inozetek%20Ruby%20Star%2C%20full%20%40artdeshine%20ceramic%20coating%2C%20%40adro.in.mp4" preload="metadata" playsinline muted></video>
+      </div>
+      <div class="vs">
+        <video src="videos/Complete%20%40teckwrap%20Vinilo%20Rosa%20Flamenco%20wrap%20installed%2C%20along%20with%20new%20carbon%20fiber%20hard%20top%E2%9C%85-DM.mp4" preload="metadata" playsinline muted></video>
+      </div>
+      <div class="vs">
+        <video src="videos/Full%20%403mfilms%20Matte%20Black%20vinyl%2C%20fresh%20rims%20and%20tires%2C%20and%20%40artdeshine_usa%20ceramic%20coating%20throu.mp4" preload="metadata" playsinline muted></video>
+      </div>
+      <div class="vs">
+        <video src="videos/Nothing%20but%20the%20best%20from%20%40inozetek%20Miami%20Blue%20vinyl%20along%20with%20%40artdeshine_usa%20graphene%20coating.mp4" preload="metadata" playsinline muted></video>
+      </div>
+
+      <!-- Arrows -->
+      <button class="vs-arrow vs-prev" id="vsPrev" aria-label="Previous video">
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M12 2L5 9l7 7" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <button class="vs-arrow vs-next" id="vsNext" aria-label="Next video">
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M6 2l7 7-7 7" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+
+      <!-- Mute toggle -->
+      <button class="vs-mute" id="vsMute" aria-label="Toggle mute" title="Unmute">
+        <!-- muted icon -->
+        <svg id="vsMuteIcon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+          <line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/>
+        </svg>
+      </button>
+
+      <!-- Counter -->
+      <div class="vs-counter" id="vsCounter">01 / 05</div>
+
+      <!-- Progress bar -->
+      <div class="vs-progress-wrap"><div class="vs-progress-bar" id="vsBar"></div></div>
+
+    </div><!-- /vs-stage -->
+
+    <!-- Dots -->
+    <div class="vs-dots" id="vsDots"></div>
+
+  </section>
+
+  <!-- ================================================================
+       GALLERY
+  ================================================================ -->
+  <section id="gallery">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="label">The Work</span>
+        <h2 class="section-title">Every Build. Every Detail.</h2>
+        <p class="section-sub">A look at some of the vehicles that have come through the shop.</p>
+      </div>
+    </div>
+
+    <!-- Slideshow -->
+    <div class="slideshow reveal" id="slideshow">
+
+      <div class="slide active" data-label="Exotic Build"><img src="pictures/Feeling%20blue%20%40777figs%20%23explore%20%23supercars%20%23photoshoot.jpg" alt="Exotic Build"><div class="slide-gradient"></div><span class="slide-label">Exotic Build</span></div>
+      <div class="slide" data-label="Full Wrap"><img src="pictures/m4.jpg" alt="BMW M4"><div class="slide-gradient"></div><span class="slide-label">Full Wrap</span></div>
+      <div class="slide" data-label="Shop Floor"><img src="pictures/IMG_2662.JPG" alt="Shop Floor"><div class="slide-gradient"></div><span class="slide-label">Shop Floor</span></div>
+      <div class="slide" data-label="McLaren 720S"><img src="pictures/%40inozetek%20Miami%20Blue%20installed%20on%20this%20insane%20720s%F0%9F%94%A5-DM%20us%20if%20you%20need%20any%20work%20done%F0%9F%93%B2-We%20financ.jpg" alt="McLaren 720S"><div class="slide-gradient"></div><span class="slide-label">McLaren 720S</span></div>
+      <div class="slide" data-label="Car Meet"><img src="pictures/Amazing%20turnout%20at%20the%20%40ssrg.official%20rally%F0%9F%94%A5--Check%20out%20our%20page%20for%20more%E2%9C%85%20%281%29.jpg" alt="Car Meet"><div class="slide-gradient"></div><span class="slide-label">Car Meet</span></div>
+      <div class="slide" data-label="Rally Shot"><img src="pictures/Amazing%20turnout%20at%20the%20%40ssrg.official%20rally%F0%9F%94%A5--Check%20out%20our%20page%20for%20more%E2%9C%85.jpg" alt="Rally Shot"><div class="slide-gradient"></div><span class="slide-label">Rally Shot</span></div>
+      <div class="slide" data-label="Vinyl Wrap"><img src="pictures/Beautiful%20Porsche%20911%20996%20coming%20in%20for%20a%20Ruby%20Star%20wrap%E2%9C%85-%20%40inozetek%20Super%20Gloss%20Ruby%20Star%F0%9F%94%A5-DM%20.jpg" alt="Porsche 996"><div class="slide-gradient"></div><span class="slide-label">Vinyl Wrap</span></div>
+      <div class="slide" data-label="Full Wrap"><img src="pictures/c8.jpg" alt="Corvette C8"><div class="slide-gradient"></div><span class="slide-label">Full Wrap</span></div>
+      <div class="slide" data-label="Full PPF"><img src="pictures/Full%20body%20PPF%20and%20360%20dash%20cam%20installed%20on%20the%20GT3RS%F0%9F%94%A5-DM%20us%20if%20you%20need%20any%20work%20done%F0%9F%93%B2-We%20fin.jpg" alt="GT3 RS PPF"><div class="slide-gradient"></div><span class="slide-label">Full PPF</span></div>
+      <div class="slide" data-label="Huracán Build"><img src="pictures/New%20custom%20exhaust%20installed%20on%20the%20Hurac%C3%A1n%F0%9F%94%A5-DM%20us%20if%20you%20need%20any%20work%20done%F0%9F%93%B2-We%20finance%F0%9F%92%B8-%F0%9F%8F%8E%EF%B8%8F.jpg" alt="Huracán Build"><div class="slide-gradient"></div><span class="slide-label">Huracán Build</span></div>
+      <div class="slide" data-label="Stealth PPF"><img src="pictures/Stealth%20mode%20%23z06%23corvette%23ppf%23chevrolet%23valvetronic.jpg" alt="C8 Z06"><div class="slide-gradient"></div><span class="slide-label">Stealth PPF</span></div>
+      <div class="slide" data-label="Custom Build"><img src="pictures/Trunk%20setup%20is%20finally%20complete%F0%9F%94%A5-DM%20us%20if%20you%20need%20any%20work%20done%F0%9F%93%B2-We%20finance%F0%9F%92%B8-Check%20out%20our%20p.jpg" alt="Custom Build"><div class="slide-gradient"></div><span class="slide-label">Custom Build</span></div>
+
+      <!-- Arrows -->
+      <button class="ss-arrow ss-prev" id="ssPrev" aria-label="Previous">
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+          <path d="M12 2L5 9l7 7" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+      <button class="ss-arrow ss-next" id="ssNext" aria-label="Next">
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+          <path d="M6 2l7 7-7 7" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+
+      <!-- Counter -->
+      <div class="slideshow-counter" id="ssCounter">01 / 12</div>
+
+    </div>
+
+    <!-- Dots -->
+    <div class="slideshow-dots" id="ssDots"></div>
+
+  </section>
+
+  <!-- ================================================================
+       TESTIMONIALS
+  ================================================================ -->
+  <section id="testimonials">
+    <div class="container">
+
+      <div class="section-head reveal">
+        <span class="label">Client Feedback</span>
+        <h2 class="section-title">They Said It</h2>
+      </div>
+
+      <div class="testi-grid">
+
+        <div class="testi-card reveal reveal-d1">
+          <div class="testi-body">
+            <div class="testi-stars">
+              <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+            </div>
+            <div class="testi-quote-mark">"</div>
+            <p class="testi-text">The finish on my R35 came out insane. Every panel lines up perfectly, edges are clean, and the color is exactly what I wanted. People can't stop asking who did the wrap.</p>
+            <div class="testi-author">
+              <span class="testi-name">Mario</span>
+              <span class="testi-vehicle">Nissan GT-R R35</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="testi-card reveal reveal-d2">
+          <div class="testi-body">
+            <div class="testi-stars">
+              <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+            </div>
+            <div class="testi-quote-mark">"</div>
+            <p class="testi-text">Brought my Huracán in and the result blew me away. Flawless execution on every curve and contour of that car — which isn't easy. Wouldn't trust anyone else with it.</p>
+            <div class="testi-author">
+              <span class="testi-name">Ruben</span>
+              <span class="testi-vehicle">Lamborghini Huracán</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="testi-card reveal reveal-d3">
+          <div class="testi-body">
+            <div class="testi-stars">
+              <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+            </div>
+            <div class="testi-quote-mark">"</div>
+            <p class="testi-text">Trusted them with my McLaren and they delivered. The wrap came out cleaner than I expected on a car with that many complex curves. Knows what he's doing and it shows.</p>
+            <div class="testi-author">
+              <span class="testi-name">Alex</span>
+              <span class="testi-vehicle">McLaren</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================================================
+       CONTACT
+  ================================================================ -->
+  <section id="contact">
+    <div class="container">
+      <div class="contact-inner">
+
+        <h2 class="contact-headline reveal">Let's Talk About Your Car</h2>
+        <p class="contact-subline reveal">Skip the forms. Reach out directly — we respond fast.</p>
+        <div class="contact-rule reveal"></div>
+
+        <div class="contact-cols reveal">
+
+          <!-- Phone / Text -->
+          <div class="contact-col">
+            <svg class="contact-col-icon" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M8 8h8l3 7-4 2.5c1.5 3.5 4.5 6.5 8 8L25.5 22l7 3v8c0 1-1 2-2 2C13 34 6 21 6 10c0-1 1-2 2-2z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+            </svg>
+            <span class="contact-col-label">Call or Text</span>
+            <div class="contact-links">
+              <a href="tel:+14086060325" class="contact-link">408-606-0325</a>
+              <a href="tel:+14089039138" class="contact-link">408-903-9138</a>
+            </div>
+            <p class="contact-col-note">Text preferred. We'll get back to you quickly.</p>
+          </div>
+
+          <div class="contact-col-divider"></div>
+
+          <!-- Instagram -->
+          <div class="contact-col">
+            <svg class="contact-col-icon" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="6" y="6" width="28" height="28" rx="8" stroke="currentColor" stroke-width="1.5"/>
+              <circle cx="20" cy="20" r="7" stroke="currentColor" stroke-width="1.5"/>
+              <circle cx="29" cy="11" r="1.5" fill="currentColor"/>
+            </svg>
+            <span class="contact-col-label">DM Us on Instagram</span>
+            <div class="contact-links">
+              <a href="https://www.instagram.com/bm_wrapz/" target="_blank" rel="noopener" class="contact-link">@bm_wrapz</a>
+              <a href="https://www.instagram.com/38carmodz/" target="_blank" rel="noopener" class="contact-link">@38carmodz</a>
+            </div>
+            <p class="contact-col-note">Slide into our DMs — we're active and responsive.</p>
+          </div>
+
+        </div>
+
+        <p class="contact-tagline reveal">Based in the Bay Area &nbsp;·&nbsp; Available for exotic, luxury, and custom builds</p>
+
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ================================================================
+     FOOTER
+================================================================ -->
+<footer>
+  <div class="container footer-inner">
+
+    <div class="footer-logo">
+      <img src="pictures/logo.PNG" alt="BM Wrapz">
+    </div>
+
+    <ul class="footer-links">
+      <li><a href="#services">Services</a></li>
+      <li><a href="#gallery">Work</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+
+    <div class="footer-right">
+      <a href="https://www.instagram.com/bm_wrapz/" class="footer-ig" target="_blank" rel="noopener" aria-label="Instagram">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="2" width="20" height="20" rx="5"/>
+          <circle cx="12" cy="12" r="4"/>
+          <circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/>
+        </svg>
+      </a>
+      <span class="footer-copy">© 2024 BM Wrapz. All rights reserved.</span>
+      <span class="footer-copy">Engineered by <a href="https://abrockenborough.dev" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:none;">abrockenborough.dev</a></span>
+    </div>
+
+  </div>
+</footer>
+
+<script>
+  /* ================================================================
+     NAV — scroll + mobile burger
+  ================================================================ */
+  const nav    = document.getElementById('nav');
+  const burger = document.getElementById('navBurger');
+  const wrap   = document.querySelector('.nav-links-wrap');
+
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 28);
+  }, { passive: true });
+
+  burger.addEventListener('click', () => {
+    const open = wrap.classList.toggle('open');
+    burger.classList.toggle('open', open);
+    burger.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+  });
+
+  document.querySelectorAll('.nav-links a').forEach(a => {
+    a.addEventListener('click', () => {
+      wrap.classList.remove('open');
+      burger.classList.remove('open');
+    });
+  });
+
+  /* ================================================================
+     HERO — parallax
+  ================================================================ */
+  const heroBg   = document.getElementById('heroBg');
+  const heroEl   = document.getElementById('hero');
+
+  function parallax() {
+    const sy = window.scrollY;
+    if (sy < heroEl.offsetHeight) {
+      heroBg.style.transform = `scale(1.1) translateY(${sy * 0.3}px)`;
+    }
+  }
+  window.addEventListener('scroll', parallax, { passive: true });
+
+  /* ================================================================
+     SCROLL REVEAL — IntersectionObserver
+  ================================================================ */
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -36px 0px' });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  /* ================================================================
+     SLIDESHOW
+  ================================================================ */
+  (function () {
+    const slides    = Array.from(document.querySelectorAll('#slideshow .slide'));
+    const dotsWrap  = document.getElementById('ssDots');
+    const counter   = document.getElementById('ssCounter');
+    const prevBtn   = document.getElementById('ssPrev');
+    const nextBtn   = document.getElementById('ssNext');
+    const stage     = document.getElementById('slideshow');
+    const total     = slides.length;
+    let   current   = 0;
+    let   busy      = false;
+    let   autoTimer = null;
+    let   ssInView  = false;
+
+    /* Build dots */
+    slides.forEach((_, i) => {
+      const d = document.createElement('button');
+      d.className = 'ss-dot' + (i === 0 ? ' active' : '');
+      d.setAttribute('aria-label', 'Go to slide ' + (i + 1));
+      d.addEventListener('click', () => goTo(i));
+      dotsWrap.appendChild(d);
+    });
+    const dots = Array.from(dotsWrap.querySelectorAll('.ss-dot'));
+
+    /* Preload adjacent images */
+    function preload(idx) {
+      [-1, 0, 1].forEach(offset => {
+        const i = (idx + offset + total) % total;
+        const img = slides[i].querySelector('img');
+        if (img && !img.complete) { const p = new Image(); p.src = img.src; }
+      });
+    }
+
+    function pad(n) { return String(n + 1).padStart(2, '0'); }
+
+    function updateUI(idx) {
+      counter.textContent = pad(idx) + ' / ' + pad(total - 1);
+      dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+    }
+
+    function goTo(idx) {
+      if (busy || idx === current) return;
+      busy = true;
+      slides[current].classList.remove('active');
+      current = (idx + total) % total;
+      slides[current].classList.add('active');
+      updateUI(current);
+      preload(current);
+      resetAuto();
+      setTimeout(() => { busy = false; }, 320);
+    }
+
+    prevBtn.addEventListener('click', () => goTo(current - 1));
+    nextBtn.addEventListener('click', () => goTo(current + 1));
+
+    /* Auto-advance */
+    function startAuto() {
+      clearInterval(autoTimer);
+      autoTimer = setInterval(() => { if (ssInView) goTo(current + 1); }, 5000);
+    }
+    function resetAuto() { startAuto(); }
+
+    stage.addEventListener('mouseenter', () => clearInterval(autoTimer));
+    stage.addEventListener('mouseleave', () => startAuto());
+
+    /* Touch / swipe */
+    let touchX = 0;
+    stage.addEventListener('touchstart', e => { touchX = e.touches[0].clientX; }, { passive: true });
+    stage.addEventListener('touchend', e => {
+      const dx = e.changedTouches[0].clientX - touchX;
+      if (Math.abs(dx) >= 50) goTo(dx < 0 ? current + 1 : current - 1);
+    }, { passive: true });
+
+    /* Keyboard — only when slideshow is in viewport */
+    const ssObserver = new IntersectionObserver(entries => {
+      ssInView = entries[0].isIntersecting;
+    }, { threshold: 0.3 });
+    ssObserver.observe(stage);
+
+    document.addEventListener('keydown', e => {
+      if (!ssInView) return;
+      if (e.key === 'ArrowLeft')  goTo(current - 1);
+      if (e.key === 'ArrowRight') goTo(current + 1);
+    });
+
+    /* Init */
+    updateUI(0);
+    preload(0);
+    startAuto();
+  })();
+
+  /* ================================================================
+     VIDEO SHOWCASE — auto-advancing slideshow
+  ================================================================ */
+  (() => {
+    const slides   = Array.from(document.querySelectorAll('#vsStage .vs'));
+    const videos   = slides.map(s => s.querySelector('video'));
+    const btnPrev  = document.getElementById('vsPrev');
+    const btnNext  = document.getElementById('vsNext');
+    const btnMute  = document.getElementById('vsMute');
+    const muteIcon = document.getElementById('vsMuteIcon');
+    const counter  = document.getElementById('vsCounter');
+    const bar      = document.getElementById('vsBar');
+    const dotsWrap = document.getElementById('vsDots');
+
+    const total = slides.length;
+    let current = 0;
+    let muted   = true;
+    let progRaf = null;
+
+    /* Build dots */
+    slides.forEach((_, i) => {
+      const d = document.createElement('button');
+      d.className = 'vs-dot' + (i === 0 ? ' active' : '');
+      d.addEventListener('click', () => goTo(i));
+      dotsWrap.appendChild(d);
+    });
+    const dots = Array.from(dotsWrap.querySelectorAll('.vs-dot'));
+
+    function updateUI(idx) {
+      const pad = n => String(n + 1).padStart(2, '0');
+      counter.textContent = `${pad(idx)} / ${pad(total - 1)}`;
+      dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+    }
+
+    function stopProgress() {
+      cancelAnimationFrame(progRaf);
+      bar.style.width = '0%';
+    }
+
+    function startProgress(vid) {
+      function tick() {
+        if (!vid.duration) { progRaf = requestAnimationFrame(tick); return; }
+        bar.style.width = (vid.currentTime / vid.duration * 100) + '%';
+        progRaf = requestAnimationFrame(tick);
+      }
+      progRaf = requestAnimationFrame(tick);
+    }
+
+    function goTo(idx) {
+      /* pause + hide current */
+      videos[current].pause();
+      videos[current].currentTime = 0;
+      slides[current].classList.remove('active');
+      stopProgress();
+
+      current = (idx + total) % total;
+
+      slides[current].classList.add('active');
+      updateUI(current);
+
+      const vid = videos[current];
+      vid.muted = muted;
+      vid.play().catch(() => {});
+      startProgress(vid);
+    }
+
+    /* Auto-advance when video ends */
+    videos.forEach((vid, i) => {
+      vid.addEventListener('ended', () => {
+        goTo(i + 1);
+      });
+    });
+
+    /* Arrows */
+    btnPrev.addEventListener('click', () => goTo(current - 1));
+    btnNext.addEventListener('click', () => goTo(current + 1));
+
+    /* Mute toggle */
+    const muteIconSVG = `<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/>`;
+    const unmuteIconSVG = `<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>`;
+
+    btnMute.addEventListener('click', () => {
+      muted = !muted;
+      videos[current].muted = muted;
+      muteIcon.innerHTML = muted ? muteIconSVG : unmuteIconSVG;
+      btnMute.title = muted ? 'Unmute' : 'Mute';
+    });
+
+    /* Start playing as soon as section enters viewport */
+    const vsObserver = new IntersectionObserver(entries => {
+      if (entries[0].isIntersecting) {
+        videos[current].muted = muted;
+        videos[current].play().catch(() => {});
+        startProgress(videos[current]);
+        vsObserver.disconnect();
+      }
+    }, { threshold: 0.3 });
+    vsObserver.observe(document.getElementById('vsStage'));
+
+    updateUI(0);
+  })();
+
+</script>
+
+</body>
+</html>
