@@ -1232,6 +1232,109 @@
     }
 
     /* ============================================================
+       LOCATION
+    ============================================================ */
+    #location {
+      background: var(--bg-0);
+      padding: var(--space-xl) 0;
+    }
+
+    .location-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+      align-items: start;
+      margin-top: 3.5rem;
+    }
+
+    .location-pin {
+      color: var(--accent);
+      margin-bottom: 1.25rem;
+      display: flex;
+    }
+
+    .location-name {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      letter-spacing: 0.06em;
+      color: var(--text-primary);
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+
+    .location-addr {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      font-weight: 300;
+      line-height: 1.75;
+    }
+
+    .location-blurb {
+      font-size: 0.925rem;
+      color: var(--text-secondary);
+      font-weight: 300;
+      line-height: 1.8;
+      margin-top: 1.75rem;
+      max-width: 400px;
+    }
+
+    .location-btns {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 2rem;
+    }
+
+    .location-btn {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.85rem 1rem;
+      background: #1a1a1a;
+      border: 1px solid #2a2a2a;
+      border-radius: var(--radius-sm);
+      text-decoration: none;
+      color: var(--text-primary);
+      font-family: var(--font-body);
+      font-size: 0.82rem;
+      font-weight: 400;
+      letter-spacing: 0.04em;
+      transition: border-color 0.2s var(--ease);
+    }
+    .location-btn:hover { border-color: var(--accent); }
+
+    .location-btn-icon {
+      flex-shrink: 0;
+      width: 18px;
+      height: 18px;
+    }
+
+    .location-btn-label { flex: 1; }
+
+    .location-btn-chevron {
+      color: var(--accent);
+      font-size: 1.2rem;
+      line-height: 1;
+    }
+
+    .location-map-wrap {
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      border: 1px solid var(--border-subtle);
+      min-height: 460px;
+      height: 100%;
+    }
+
+    .location-map-wrap iframe {
+      width: 100%;
+      height: 100%;
+      min-height: 460px;
+      display: block;
+      border: none;
+      filter: invert(0.9) hue-rotate(180deg) saturate(0.45) brightness(0.85);
+    }
+
+    /* ============================================================
        FOOTER
     ============================================================ */
     footer {
@@ -1384,6 +1487,12 @@
       /* Contact */
       .form-row { grid-template-columns: 1fr; }
 
+      /* Location */
+      .location-grid { grid-template-columns: 1fr; gap: var(--space-lg); }
+      .location-map-wrap,
+      .location-map-wrap iframe { min-height: 300px; }
+      .location-blurb { max-width: 100%; }
+
       /* Footer */
       .footer-inner { flex-direction: column; text-align: center; gap: 1.5rem; }
       .footer-links { flex-wrap: wrap; justify-content: center; }
@@ -1439,7 +1548,7 @@
       <p class="hero-eyebrow">Vinyl Wrap &amp; Paint Protection Film</p>
       <h1 class="hero-title">
         The Bay Areas<br>
-        <em>One Stop Shop.</em>
+        <em>Certified Vinyl Wrap & PPF Shop.</em>
       </h1>
       <p class="hero-sub">From daily drivers, trucks, stance cars, and to exotics — if it has wheels, we wrap it.</p>
       <div class="hero-actions">
@@ -1832,6 +1941,91 @@
       </div>
     </div>
   </section>
+
+<!-- ================================================================
+     LOCATION
+================================================================ -->
+<section id="location">
+  <div class="container">
+
+    <div class="section-head reveal">
+      <span class="label">Find Us</span>
+      <h2 class="section-title">Come See Us In Person</h2>
+      <p class="section-sub">Have questions? Want to talk about your build? Stop by — walk-ins are welcome.</p>
+    </div>
+
+    <div class="location-grid">
+
+      <!-- Left: address + directions -->
+      <div class="reveal">
+
+        <div class="location-pin">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+            <circle cx="12" cy="10" r="3"/>
+          </svg>
+        </div>
+
+        <p class="location-name">BM Wrapz</p>
+        <p class="location-addr">280 Martin Ave<br>Santa Clara, CA 95050</p>
+
+        <p class="location-blurb">No appointment needed to stop by and chat. Whether you're shopping around or ready to book — the door is open.</p>
+
+        <div class="location-btns">
+
+          <a class="location-btn"
+             href="https://www.google.com/maps/dir/?api=1&destination=280+Martin+Ave+Santa+Clara+CA+95050"
+             target="_blank" rel="noopener">
+            <svg class="location-btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+              <circle cx="12" cy="10" r="3"/>
+            </svg>
+            <span class="location-btn-label">Open in Google Maps</span>
+            <span class="location-btn-chevron">›</span>
+          </a>
+
+          <a class="location-btn"
+             href="https://maps.apple.com/?daddr=280+Martin+Ave,+Santa+Clara,+CA+95050"
+             onclick="if(/iPhone|iPad|iPod|Macintosh/.test(navigator.userAgent)){this.href='maps://maps.apple.com/?daddr=280+Martin+Ave,+Santa+Clara,+CA+95050'}"
+             target="_blank" rel="noopener">
+            <svg class="location-btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 2L4.5 20.5h15L12 2z"/>
+              <path d="M12 8v6"/>
+              <circle cx="12" cy="17" r="0.5" fill="currentColor" stroke="none"/>
+            </svg>
+            <span class="location-btn-label">Open in Apple Maps</span>
+            <span class="location-btn-chevron">›</span>
+          </a>
+
+          <a class="location-btn"
+             href="https://waze.com/ul?q=280+Martin+Ave+Santa+Clara+CA+95050&navigate=yes"
+             target="_blank" rel="noopener">
+            <svg class="location-btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="11" r="7"/>
+              <circle cx="9.5" cy="10" r="1" fill="currentColor" stroke="none"/>
+              <circle cx="14.5" cy="10" r="1" fill="currentColor" stroke="none"/>
+              <path d="M9.5 14s1 1.5 2.5 1.5 2.5-1.5 2.5-1.5"/>
+              <path d="M18 3l2-2M6 3L4 1"/>
+            </svg>
+            <span class="location-btn-label">Open in Waze</span>
+            <span class="location-btn-chevron">›</span>
+          </a>
+
+        </div>
+      </div>
+
+      <!-- Right: map -->
+      <div class="location-map-wrap reveal reveal-d2">
+        <iframe
+          src="https://www.openstreetmap.org/export/embed.html?bbox=-121.9790%2C37.341%2C-121.959%2C37.361&layer=mapnik&marker=37.3507%2C-121.9690"
+          title="BM Wrapz — 280 Martin Ave, Santa Clara"
+          loading="lazy"
+          referrerpolicy="no-referrer"></iframe>
+      </div>
+
+    </div>
+  </div>
+</section>
 
 </main>
 
