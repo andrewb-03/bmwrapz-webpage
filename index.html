@@ -280,6 +280,8 @@
       background: none;
       border: none;
       cursor: pointer;
+      position: relative;
+      z-index: 1001;
     }
     .nav-burger span {
       display: block;
@@ -1337,13 +1339,23 @@
         border-bottom: 1px solid var(--border-subtle);
         transform: translateY(-110%);
         opacity: 0;
-        transition: transform 0.3s var(--ease), opacity 0.3s var(--ease);
+        pointer-events: none;
+        visibility: hidden;
+        transition: transform 0.3s var(--ease), opacity 0.3s var(--ease),
+                    visibility 0s linear 0.3s;
         z-index: 999;
         flex-direction: column;
         align-items: flex-start;
         gap: 0;
       }
-      .nav-links-wrap.open { transform: translateY(0); opacity: 1; }
+      .nav-links-wrap.open {
+        transform: translateY(0);
+        opacity: 1;
+        pointer-events: auto;
+        visibility: visible;
+        transition: transform 0.3s var(--ease), opacity 0.3s var(--ease),
+                    visibility 0s linear 0s;
+      }
 
       .nav-links { flex-direction: column; align-items: flex-start; gap: 0; width: 100%; }
       .nav-links li { width: 100%; border-bottom: 1px solid var(--border-subtle); }
