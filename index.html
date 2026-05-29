@@ -6,7 +6,7 @@
   <title>BM Wrapz — Precision Vinyl Wrap & PPF</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
     /* ============================================================
        CUSTOM PROPERTIES
@@ -19,6 +19,7 @@
       --bg-card-hov:  #181818;
 
       --accent:        #CC1F1F;
+      --red:           #CC1F1F;
       --accent-dim:    rgba(204, 31, 31, 0.55);
       --accent-subtle: rgba(204, 31, 31, 0.08);
       --accent-border: rgba(204, 31, 31, 0.22);
@@ -32,6 +33,7 @@
 
       --font-display: 'Bebas Neue', sans-serif;
       --font-body:    'DM Sans', sans-serif;
+      --font-ui:      'Outfit', sans-serif;
 
       --space-xs: 0.5rem;
       --space-sm: 1rem;
@@ -1335,6 +1337,251 @@
     }
 
     /* ============================================================
+       QUOTE / INQUIRY FORM
+    ============================================================ */
+    #quote {
+      background: #111111;
+      position: relative;
+      overflow: hidden;
+      padding: var(--space-xl) 0;
+    }
+
+    /* Subtle grain overlay */
+    #quote::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='280' height='280'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.76' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='280' height='280' filter='url(%23g)'/%3E%3C/svg%3E");
+      opacity: 0.035;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .quote-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Top + bottom red framing rules */
+    .quote-rule {
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--red) 30%, var(--red) 70%, transparent);
+      opacity: 0.35;
+    }
+
+    /* Section header */
+    .quote-head {
+      text-align: center;
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 3.5rem 0;
+    }
+    .quote-eyebrow {
+      font-family: var(--font-ui);
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 1rem;
+    }
+    .quote-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.6rem, 6vw, 4.6rem);
+      letter-spacing: 0.03em;
+      line-height: 1;
+      color: var(--text-primary);
+      margin-bottom: 1.25rem;
+    }
+    .quote-sub {
+      font-family: var(--font-ui);
+      font-size: 0.975rem;
+      font-weight: 300;
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+
+    /* Form grid */
+    .quote-form {
+      max-width: 680px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+
+    .q-field { display: flex; flex-direction: column; }
+    .q-field.full { grid-column: 1 / -1; }
+
+    .q-label {
+      font-family: var(--font-ui);
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #999;
+      margin-bottom: 6px;
+    }
+
+    .q-input,
+    .q-textarea {
+      width: 100%;
+      background: #1a1a1a;
+      border: 1px solid #2a2a2a;
+      border-radius: 0;
+      color: #fff;
+      font-family: var(--font-ui);
+      font-size: 0.95rem;
+      font-weight: 300;
+      padding: 14px 16px;
+      transition: border-color 0.2s var(--ease);
+    }
+    .q-input::placeholder,
+    .q-textarea::placeholder { color: #666; }
+    .q-input:focus,
+    .q-textarea:focus { outline: none; border-color: var(--red); }
+    .q-textarea { resize: vertical; min-height: 130px; line-height: 1.6; }
+
+    /* Hide number input spinners for a cleaner look */
+    .q-input[type="number"]::-webkit-outer-spin-button,
+    .q-input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+    .q-input[type="number"] { -moz-appearance: textfield; appearance: textfield; }
+
+    /* Vehicle row — three fields sharing one full-width row */
+    .q-vehicle {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+
+    /* Grouped sections (service / contact) */
+    .q-group { grid-column: 1 / -1; }
+
+    .q-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-top: 2px;
+    }
+
+    .q-card {
+      position: relative;
+      background: #1a1a1a;
+      border: 1px solid #2a2a2a;
+      border-radius: 0;
+      padding: 1.5rem 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: border-color 0.2s var(--ease), background 0.2s var(--ease);
+    }
+    .q-card:hover { border-color: #3a3a3a; }
+    .q-card input {
+      position: absolute;
+      opacity: 0;
+      width: 0; height: 0;
+      pointer-events: none;
+    }
+
+    .q-card-title {
+      font-family: var(--font-ui);
+      font-size: 0.95rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+      transition: color 0.2s var(--ease);
+    }
+
+    /* Checkmark in red corner */
+    .q-card-check {
+      position: absolute;
+      top: 10px; right: 10px;
+      width: 18px; height: 18px;
+      color: var(--red);
+      opacity: 0;
+      transform: scale(0.5);
+      transition: opacity 0.2s var(--ease), transform 0.2s var(--ease);
+    }
+
+    /* Selected state */
+    .q-card:has(input:checked) {
+      border-color: var(--red);
+      background: #1f1313;
+    }
+    .q-card:has(input:checked) .q-card-title { color: #fff; }
+    .q-card:has(input:checked) .q-card-check { opacity: 1; transform: scale(1); }
+    .q-card:focus-within { border-color: var(--red); }
+
+    /* Inline error text */
+    .q-error {
+      display: none;
+      font-family: var(--font-ui);
+      font-size: 0.75rem;
+      font-weight: 400;
+      color: var(--red);
+      margin-top: 6px;
+    }
+    .q-field.error .q-error,
+    .q-group.error .q-error { display: block; }
+    .q-field.error .q-input,
+    .q-field.error .q-textarea { border-color: var(--red); }
+
+    /* Submit button */
+    .q-submit {
+      grid-column: 1 / -1;
+      width: 100%;
+      background: var(--red);
+      color: #fff;
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      letter-spacing: 0.08em;
+      padding: 1rem;
+      border: none;
+      border-radius: 0;
+      cursor: pointer;
+      transition: background 0.2s var(--ease), opacity 0.2s var(--ease);
+    }
+    .q-submit:hover { background: #e02626; }
+    .q-submit:disabled { opacity: 0.6; cursor: default; }
+
+    /* Success confirmation */
+    .quote-success {
+      max-width: 680px;
+      margin: 0 auto;
+      text-align: center;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+      padding: 2rem 0 1rem;
+    }
+    .quote-success.show { display: flex; }
+    .quote-success-icon { color: var(--red); width: 58px; height: 58px; }
+    .quote-success-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.6rem, 6vw, 4.4rem);
+      letter-spacing: 0.03em;
+      line-height: 1;
+      color: var(--text-primary);
+    }
+    .quote-success-sub {
+      font-family: var(--font-ui);
+      font-size: 1rem;
+      font-weight: 300;
+      color: var(--text-secondary);
+    }
+
+    @media (max-width: 640px) {
+      .quote-form { grid-template-columns: 1fr; }
+      .q-vehicle { grid-template-columns: 1fr; }
+      .q-cards { grid-template-columns: 1fr 1fr; }
+    }
+
+    /* ============================================================
        FOOTER
     ============================================================ */
     footer {
@@ -1465,7 +1712,14 @@
       .nav-links a { display: block; padding: 1rem 0; font-size: 0.85rem; color: var(--text-primary); }
       .nav-links a::after { display: none; }
 
-      .nav-quote { display: none; }
+      .nav-quote {
+        display: inline-flex;
+        justify-content: center;
+        width: 100%;
+        margin-top: 1.5rem;
+        padding: 0.85rem 1.35rem;
+        font-size: 0.78rem;
+      }
       .nav-burger { display: flex; }
 
       /* Hero */
@@ -1524,6 +1778,7 @@
           <li><a href="#gallery">Work</a></li>
           <li><a href="#contact">Contact</a></li>
         </ul>
+        <a href="#quote" class="btn btn-primary nav-quote">Inquiry</a>
       </div>
 
       <button class="nav-burger" id="navBurger" aria-label="Open menu">
@@ -1544,8 +1799,8 @@
 
     <div class="container hero-content">
       <h1 class="hero-title">
-        Precision<br>
-        <em>Vinly Wrap & PPF.</em>
+        <i>BM WRAPZ</i><br>
+        <em><i>Vinly Wrap & PPF.</i></em>
       </h1>
       <div class="hero-actions">
         <a href="#gallery" class="btn btn-ghost">View Work</a>
@@ -1775,6 +2030,123 @@
   </section>
 
   <!-- ================================================================
+       QUOTE / INQUIRY FORM
+  ================================================================ -->
+  <section id="quote">
+    <div class="container quote-inner">
+
+      <div class="quote-rule reveal"></div>
+
+      <div class="quote-head reveal">
+        <h2 class="quote-title">Get a Quote</h2>
+        <p class="quote-sub">Fill out the form below and we'll get back to you with a quote via your preferred contact method.</p>
+      </div>
+
+      <!-- Formspree endpoint delivering to bmwrapzllc@gmail.com -->
+      <form class="quote-form reveal" id="quoteForm" action="https://formspree.io/f/mqejjynl" method="POST" novalidate>
+
+        <input type="hidden" name="_subject" value="New inquiry from BM Wrapz website">
+
+        <div class="q-field" data-required>
+          <label class="q-label" for="qName">Full Name</label>
+          <input class="q-input" type="text" id="qName" name="name" autocomplete="name">
+          <span class="q-error">Please enter your name.</span>
+        </div>
+
+        <div class="q-field" data-required>
+          <label class="q-label" for="qPhone">Phone Number</label>
+          <input class="q-input" type="tel" id="qPhone" name="phone" placeholder="" autocomplete="tel" inputmode="numeric" maxlength="14">
+          <span class="q-error">Please enter your phone number.</span>
+        </div>
+
+        <div class="q-field full" data-required>
+          <label class="q-label" for="qEmail">Email Address</label>
+          <input class="q-input" type="email" id="qEmail" name="email" autocomplete="email">
+          <span class="q-error">Please enter a valid email address.</span>
+        </div>
+
+        <div class="q-vehicle">
+          <div class="q-field" data-required>
+            <label class="q-label" for="qYear">Vehicle Year</label>
+            <input class="q-input" type="number" id="qYear" name="vehicle_year" min="1980" max="2026">
+            <span class="q-error">Enter a year (1980–2026).</span>
+          </div>
+          <div class="q-field" data-required>
+            <label class="q-label" for="qMake">Vehicle Make</label>
+            <input class="q-input" type="text" id="qMake" name="vehicle_make" placeholder="">
+            <span class="q-error">Please enter the make.</span>
+          </div>
+          <div class="q-field" data-required>
+            <label class="q-label" for="qModel">Vehicle Model</label>
+            <input class="q-input" type="text" id="qModel" name="vehicle_model" placeholder="">
+            <span class="q-error">Please enter the model.</span>
+          </div>
+        </div>
+
+        <!-- Service interest — checkboxes (multiple allowed) -->
+        <div class="q-group" id="serviceGroup">
+          <span class="q-label">Service Interest</span>
+          <div class="q-cards">
+            <label class="q-card">
+              <input type="checkbox" name="service" value="Vinyl Wrap">
+              <svg class="q-card-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              <span class="q-card-title">Vinyl Wrap</span>
+            </label>
+            <label class="q-card">
+              <input type="checkbox" name="service" value="PPF">
+              <svg class="q-card-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              <span class="q-card-title">PPF</span>
+            </label>
+          </div>
+          <span class="q-error">Please select at least one service.</span>
+        </div>
+
+        <!-- Preferred contact method — radios (single select) -->
+        <div class="q-group" id="contactGroup">
+          <span class="q-label">Preferred Contact Method</span>
+          <div class="q-cards">
+            <label class="q-card">
+              <input type="radio" name="contact_preference" value="Text Me">
+              <svg class="q-card-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              <span class="q-card-title">Text Me</span>
+            </label>
+            <label class="q-card">
+              <input type="radio" name="contact_preference" value="Call Me Back">
+              <svg class="q-card-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              <span class="q-card-title">Call Me Back</span>
+            </label>
+          </div>
+          <span class="q-error">Please choose how you'd like us to reach you.</span>
+        </div>
+
+        <div class="q-field full">
+          <label class="q-label" for="qNotes">Additional Notes</label>
+          <textarea class="q-textarea" id="qNotes" name="notes" placeholder="Any details you may want us to know."></textarea>
+        </div>
+
+        <button type="submit" class="q-submit">Send Inquiry</button>
+
+        <br>
+      <br>
+
+      </form>
+
+      <!-- Success confirmation -->
+      <div class="quote-success" id="quoteSuccess">
+        <svg class="quote-success-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/>
+          <polyline points="16 9 11 14.5 8 11.5"/>
+        </svg>
+        <h2 class="quote-success-title">We Got Your Request.</h2>
+        <p class="quote-success-sub">Expect to hear from us via your preferred method.</p>
+      </div>
+
+      <div class="quote-rule reveal"></div>
+
+    </div>
+  </section>
+
+  <!-- ================================================================
        CONTACT
   ================================================================ -->
   
@@ -1952,7 +2324,7 @@
     burger.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
   });
 
-  document.querySelectorAll('.nav-links a').forEach(a => {
+  document.querySelectorAll('.nav-links a, .nav-quote').forEach(a => {
     a.addEventListener('click', () => {
       wrap.classList.remove('open');
       burger.classList.remove('open');
@@ -2191,6 +2563,112 @@
     vsObserver.observe(document.getElementById('vsStage'));
 
     updateUI(0);
+  })();
+
+  /* ================================================================
+     QUOTE / INQUIRY FORM — validation + Formspree submit
+  ================================================================ */
+  (function () {
+    const form = document.getElementById('quoteForm');
+    if (!form) return;
+
+    const successEl = document.getElementById('quoteSuccess');
+    const svcGroup  = document.getElementById('serviceGroup');
+    const conGroup  = document.getElementById('contactGroup');
+    const submitBtn = form.querySelector('.q-submit');
+
+    const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    function validate() {
+      let ok = true;
+
+      form.querySelectorAll('.q-field[data-required]').forEach(field => {
+        const input = field.querySelector('.q-input, .q-textarea');
+        const val   = input.value.trim();
+        let valid   = val !== '';
+
+        if (valid && input.type === 'email')      valid = emailRe.test(val);
+        if (valid && input.name === 'vehicle_year') {
+          const y = Number(val);
+          valid = Number.isFinite(y) && y >= 1980 && y <= 2026;
+        }
+
+        field.classList.toggle('error', !valid);
+        if (!valid) ok = false;
+      });
+
+      const svcOk = svcGroup.querySelector('input[name="service"]:checked') !== null;
+      svcGroup.classList.toggle('error', !svcOk);
+      if (!svcOk) ok = false;
+
+      const conOk = conGroup.querySelector('input[name="contact_preference"]:checked') !== null;
+      conGroup.classList.toggle('error', !conOk);
+      if (!conOk) ok = false;
+
+      return ok;
+    }
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (!validate()) {
+        const firstErr = form.querySelector('.error');
+        if (firstErr) firstErr.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
+      }
+
+      const originalLabel = submitBtn.textContent;
+      submitBtn.textContent = 'Sending...';
+      submitBtn.disabled = true;
+
+      try {
+        const res = await fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { 'Accept': 'application/json' }
+        });
+
+        if (res.ok) {
+          form.style.display = 'none';
+          const head = document.querySelector('#quote .quote-head');
+          if (head) head.style.display = 'none';
+          successEl.classList.add('show');
+          successEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        } else {
+          submitBtn.textContent = originalLabel;
+          submitBtn.disabled = false;
+          alert('Something went wrong sending your request. Please try again, or contact us directly.');
+        }
+      } catch (err) {
+        submitBtn.textContent = originalLabel;
+        submitBtn.disabled = false;
+        alert('Network error. Please check your connection and try again, or contact us directly.');
+      }
+    });
+
+    /* Live-format the phone number as (209)-923-3890 */
+    const phoneInput = document.getElementById('qPhone');
+    if (phoneInput) {
+      phoneInput.addEventListener('input', () => {
+        const d = phoneInput.value.replace(/\D/g, '').slice(0, 10);
+        let out = '';
+        if (d.length === 0)      out = '';
+        else if (d.length < 4)   out = '(' + d;
+        else if (d.length < 7)   out = '(' + d.slice(0, 3) + ')-' + d.slice(3);
+        else                     out = '(' + d.slice(0, 3) + ')-' + d.slice(3, 6) + '-' + d.slice(6);
+        phoneInput.value = out;
+      });
+    }
+
+    /* Clear a field's error once the user starts correcting it (does not re-validate everything) */
+    form.querySelectorAll('.q-input, .q-textarea').forEach(input => {
+      input.addEventListener('input', () => input.closest('.q-field').classList.remove('error'));
+    });
+    svcGroup.querySelectorAll('input[name="service"]').forEach(cb => {
+      cb.addEventListener('change', () => svcGroup.classList.remove('error'));
+    });
+    conGroup.querySelectorAll('input[name="contact_preference"]').forEach(rb => {
+      rb.addEventListener('change', () => conGroup.classList.remove('error'));
+    });
   })();
 
 </script>
