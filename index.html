@@ -216,7 +216,9 @@
       align-items: center;
       justify-content: space-between;
       height: 100%;
+      position: relative;
     }
+
 
     /* Logo */
     .nav-logo {
@@ -238,8 +240,16 @@
     }
     .nav-logo-text em { color: var(--accent); font-style: normal; }
 
-    /* Links */
-    .nav-links-wrap { display: flex; align-items: center; gap: 2.75rem; }
+    /* Links — centered absolutely so logo and inquiry button stay at edges */
+    .nav-links-wrap {
+      display: flex;
+      align-items: center;
+      gap: 2.75rem;
+      white-space: nowrap;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+    }
 
     .nav-links {
       display: flex;
@@ -249,11 +259,11 @@
     }
 
     .nav-links a {
-      font-size: 0.73rem;
-      font-weight: 400;
-      letter-spacing: 0.16em;
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
-      color: var(--text-secondary);
+      color: var(--text-primary);
       transition: color 0.2s var(--ease);
       position: relative;
     }
@@ -308,44 +318,64 @@
       padding: 0;
     }
 
-    /* Dramatic dark gradient background — replace with real photo via CSS background-image */
-    .hero-bg {
+    /* Three-panel video background */
+    .hero-video-bg {
       position: absolute;
       inset: 0;
-      background:
-        radial-gradient(ellipse at 68% 42%, #1a0c0c 0%, transparent 52%),
-        radial-gradient(ellipse at 18% 75%, #110808 0%, transparent 48%),
-        linear-gradient(155deg, #0e0e0e 0%, #080808 45%, #0a0808 100%);
-      transform: scale(1.1);
-      will-change: transform;
+      z-index: 0;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      width: 100%;
+      height: 100%;
     }
 
-    /* Simulated sweep of studio light */
-    .hero-bg::before {
-      content: '';
+    .hero-video-panel {
+      overflow: hidden;
+      height: 100%;
+    }
+
+    .hero-video-panel video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* Dark vignette overlay */
+    .hero-video-overlay {
       position: absolute;
       inset: 0;
+      z-index: 1;
       background: linear-gradient(
-        108deg,
-        transparent 32%,
-        rgba(204, 31, 31, 0.04) 52%,
-        transparent 68%
+        to bottom,
+        rgba(0,0,0,0.3) 0%,
+        rgba(0,0,0,0.15) 40%,
+        rgba(0,0,0,0.5) 100%
       );
     }
 
-    /* Bottom accent line */
-    .hero-bg::after {
-      content: '';
+    /* Red divider lines between panels */
+    .hero-divider {
       position: absolute;
-      bottom: 0; left: 0; right: 0;
-      height: 1px;
-      background: linear-gradient(90deg, transparent 5%, var(--accent-dim) 50%, transparent 95%);
-      opacity: 0.4;
+      top: 0;
+      height: 100%;
+      width: 1px;
+      background: rgba(192, 0, 26, 0.4);
+      z-index: 2;
+    }
+    .hero-divider-left  { left: 33.33%; }
+    .hero-divider-right { left: 66.66%; }
+
+    @media (max-width: 768px) {
+      .hero-video-panel:first-child,
+      .hero-video-panel:last-child { display: none; }
+      .hero-video-bg { grid-template-columns: 1fr; }
+      .hero-divider { display: none; }
     }
 
     .hero-content {
       position: relative;
-      z-index: 1;
+      z-index: 3;
       padding-top: var(--nav-h);
     }
 
@@ -364,11 +394,13 @@
       letter-spacing: 0.01em;
       color: var(--text-primary);
       margin-bottom: 1.8rem;
+      text-shadow: 0 2px 20px rgba(0,0,0,0.8);
     }
     .hero-title em {
       display: block;
       color: var(--accent);
       font-style: normal;
+      text-shadow: 0 2px 20px rgba(0,0,0,0.8);
     }
 
     .hero-sub {
@@ -1603,9 +1635,9 @@
       gap: 0.65rem;
     }
     .footer-logo img {
-      height: 34px;
+      height: 100px;
       width: auto;
-      opacity: 0.55;
+      opacity: 0.85;
     }
     .footer-logo-text {
       font-family: var(--font-display);
@@ -1769,7 +1801,6 @@
     <div class="container nav-inner">
 
       <a href="#" class="nav-logo">
-        <img src="pictures/logo.PNG" alt="BM Wrapz">
       </a>
 
       <div class="nav-links-wrap">
@@ -1778,7 +1809,7 @@
           <li><a href="#gallery">Work</a></li>
           <li><a href="#contact">Contact</a></li>
         </ul>
-        <a href="#quote" class="btn btn-primary nav-quote">Inquiry</a>
+        <a href="#quote" class="btn btn-primary nav-quote">Get a Quote</a>
       </div>
 
       <button class="nav-burger" id="navBurger" aria-label="Open menu">
@@ -1795,15 +1826,41 @@
        HERO
   ================================================================ -->
   <section id="hero">
-    <div class="hero-bg" id="heroBg"></div>
+
+    <!-- Three-panel video background -->
+    <div class="hero-video-bg">
+      <div class="hero-video-panel">
+        <video autoplay muted loop playsinline preload="auto" poster="">
+          <source src="videos/c8reel.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="hero-video-panel">
+        <video autoplay muted loop playsinline preload="auto" poster="">
+          <source src="videos/lamboreel.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="hero-video-panel">
+        <video autoplay muted loop playsinline preload="auto" poster="">
+          <source src="videos/gtrreel.mp4" type="video/mp4">
+        </video>
+      </div>
+    </div>
+
+    <!-- Dark vignette overlay -->
+    <div class="hero-video-overlay"></div>
+
+    <!-- Red divider lines -->
+    <div class="hero-divider hero-divider-left"></div>
+    <div class="hero-divider hero-divider-right"></div>
 
     <div class="container hero-content">
       <h1 class="hero-title">
         <i>BM WRAPZ</i><br>
-        <em><i>Vinly Wrap & PPF.</i></em>
+        <em><i>Vinyl Wrap & PPF.</i></em>
       </h1>
       <div class="hero-actions">
         <a href="#gallery" class="btn btn-ghost">View Work</a>
+        <a href="#quote" class="btn btn-primary">Get a Quote</a>
       </div>
     </div>
 
@@ -1928,7 +1985,7 @@
     <div class="container">
       <div class="section-head reveal">
         <hr style="border: none; border-top: 1px solid #C0001A; width: 60px; margin: 0 0 12px 0;">
-        <h2 class="section-title">See It In Action</h2>
+        <h2 class="section-title">Recent Videos</h2>
       </div>
     </div>
 
@@ -1988,7 +2045,7 @@
     <div class="container">
       <div class="section-head reveal">
         <hr style="border: none; border-top: 1px solid #C0001A; width: 60px; margin: 0 0 12px 0;">
-        <h2 class="section-title">Recent Work</h2>
+        <h2 class="section-title">Recent Pictures</h2>
       </div>
     </div>
 
@@ -1997,7 +2054,6 @@
 
       <div class="slide active" data-label="Exotic Build"><img src="pictures/Feeling%20blue%20%40777figs%20%23explore%20%23supercars%20%23photoshoot.jpg" alt="Exotic Build"><div class="slide-gradient"></div><span class="slide-label">Exotic Build</span></div>
       <div class="slide" data-label="Full Wrap"><img src="pictures/m4.jpg" alt="BMW M4"><div class="slide-gradient"></div><span class="slide-label">Full Wrap</span></div>
-      <div class="slide" data-label="McLaren 720S"><img src="pictures/%40inozetek%20Miami%20Blue%20installed%20on%20this%20insane%20720s%F0%9F%94%A5-DM%20us%20if%20you%20need%20any%20work%20done%F0%9F%93%B2-We%20financ.jpg" alt="McLaren 720S"><div class="slide-gradient"></div><span class="slide-label">McLaren 720S</span></div>
       <div class="slide" data-label="Car Meet"><img src="pictures/Amazing%20turnout%20at%20the%20%40ssrg.official%20rally%F0%9F%94%A5--Check%20out%20our%20page%20for%20more%E2%9C%85%20%281%29.jpg" alt="Car Meet"><div class="slide-gradient"></div><span class="slide-label">Car Meet</span></div>
       <div class="slide" data-label="Rally Shot"><img src="pictures/Amazing%20turnout%20at%20the%20%40ssrg.official%20rally%F0%9F%94%A5--Check%20out%20our%20page%20for%20more%E2%9C%85.jpg" alt="Rally Shot"><div class="slide-gradient"></div><span class="slide-label">Rally Shot</span></div>
       <div class="slide" data-label="Vinyl Wrap"><img src="pictures/Beautiful%20Porsche%20911%20996%20coming%20in%20for%20a%20Ruby%20Star%20wrap%E2%9C%85-%20%40inozetek%20Super%20Gloss%20Ruby%20Star%F0%9F%94%A5-DM%20.jpg" alt="Porsche 996"><div class="slide-gradient"></div><span class="slide-label">Vinyl Wrap</span></div>
@@ -2124,7 +2180,7 @@
           <textarea class="q-textarea" id="qNotes" name="notes" placeholder="Any details you may want us to know."></textarea>
         </div>
 
-        <button type="submit" class="q-submit">Send Inquiry</button>
+        <button type="submit" class="q-submit">Send</button>
 
         <br>
       <br>
@@ -2137,8 +2193,8 @@
           <circle cx="12" cy="12" r="10"/>
           <polyline points="16 9 11 14.5 8 11.5"/>
         </svg>
-        <h2 class="quote-success-title">We Got Your Request.</h2>
-        <p class="quote-success-sub">Expect to hear from us via your preferred method.</p>
+        <h2 class="quote-success-title">Send Successful.</h2>
+        <p class="quote-success-sub">We will get back to you as soon as possible.</p>
       </div>
 
       <div class="quote-rule reveal"></div>
